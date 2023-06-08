@@ -1,15 +1,24 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Screen Darkener</title>
-  <link rel="stylesheet" type="text/css" href="popup.css">
-  <script src="popup.js"></script>
-</head>
-<body>
-  <div class="container">
-    <h1>Screen Darkener</h1>
-    <label for="brightness">Brightness:</label>
-    <input type="range" id="brightness" min="0" max="100" value="50">
-  </div>
-</body>
+  <head>
+    <title>Dark Screen</title>
+    <script src="popup.js"></script>
+    <style>
+      body {
+        width: 250px;
+        height: 150px;
+        padding: 10px;
+        font-family: Arial, sans-serif;
+      }
+
+      input[type="range"] {
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Adjust Screen Brightness</h1>
+    <input type="range" min="0" max="100" value="100" id="brightnessRange" />
+    <script src="popup.js"></script>
+  </body>
 </html>
