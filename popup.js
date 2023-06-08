@@ -1,10 +1,21 @@
-document.addEventListener("DOMContentLoaded", function() {
-  var brightnessInput = document.getElementById("brightness");
+document.addEventListener('DOMContentLoaded', function () {
+  const brightnessRange = document.getElementById('brightnessRange');
 
-  brightnessInput.addEventListener("input", function() {
-    var brightnessValue = parseInt(brightnessInput.value, 10) / 100;
-    chrome.tabs.executeScript({
-      code: "document.body.style.filter = 'brightness(" + brightnessValue + ")';"
+  brightnessRange.addEventListener('input', function () {
+    const brightnessValue = parseInt(brightnessRange.value);
+    chrome.scripting.executeScript({
+      code: `
+        const newStyle = document.createElement('style');
+        newStyle.textContent = 'html { filter: brightness(${brightnessValue}%); }';
+        document.documentElement.appendChild(newStyle);
+      `,
     });
+    chrome.storage.sync.set({ brightnessValue });
+  });
+
+  chrome.storage.sync.get(['brightnessValue'], function (result) {
+    const storedValue = result.brightnessValue || 100;
+    brightnessRange.value = storedValue.toString();
+    brightnessRange.dispatchEvent(new Event('input'));
   });
 });
